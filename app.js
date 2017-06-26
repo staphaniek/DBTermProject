@@ -29,6 +29,68 @@ conn.query(sql, function(err, rows, columns){
 });
 conn.end();
 */
+app.post('/topic/add', function(req,res){
+  var user={};
+  if(req.cookies.user){
+    user=req.cookies.user;
+  }
+  else{
+    console.log(err);
+    return res.status(500).send('empty');
+  }
+  var title = req.body.title;
+  var content = req.body.content;
+  var author = user.username;
+  var sql = 'INSERT INTO topic(title, content, author) VALUES(?, ?, ?)';
+  conn.query(sql, [title, content, author], function(err, result, fields){
+    if(err){
+      console.log(err);
+      res.status(500).send('Internal Server Error');
+    }
+    else{
+      res.redirect('/topic/'+result.insertId);
+    }
+  });
+});
+app.get('/topic/add', function(req,res){
+  var user={};
+  if(req.cookies.user){
+    user=req.cookies.user;
+  }
+  else{
+    console.log(err);
+    return res.status(500).send('empty');
+  }
+  res.render('addTopic', {user:user});
+});
+app.get(['/topic', '/topic/:id'], function(req,res){
+  var user={};
+  if(req.cookies.user){
+    user=req.cookies.user;
+  }
+  else{
+    console.log(err);
+    return res.status(500).send('empty');
+  }
+  var sql = 'SELECT id, title, author FROM topic order by id desc';
+  conn.query(sql,function(err, topics, fields){
+    var id = req.params.id;
+    if(id){
+      var sql = 'SELECT * FROM topic WHERE id=?';
+      conn.query(sql, [id], function(err, topic, fields){
+        if(err){
+          console.log(err);
+          res.status(500).send('Internal Server Error');
+        }
+        else{
+          res.render('viewTopic',{user:user, topics:topics, topic:topic[0]});
+        }
+      });
+    } else {
+      res.render('viewTopic',{user:user, topics:topics});
+    }
+  });
+});
 app.post('/member/:id/delete',function(req,res){
   var id=req.params.id;
   var sql='DELETE FROM member WHERE id=?';

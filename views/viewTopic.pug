@@ -1,0 +1,41 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+  style.
+    table {
+      border: 1px solid #444444;
+      border-collapse: collapse;
+    }
+    tr, td {
+      border: 1px solid #444444;
+    }
+  body
+    h1
+      a(href='/home/'+user.id) Home
+    h2
+      a(href='/topic') 게시판
+    table
+      tr
+        td(align='center') 글 번호
+        td 제목
+        td 작성자
+      each topic in topics
+        tr
+          td(align='center')= topic.id
+          td(align='center')
+            a(href='/topic/'+topic.id)= topic.title
+          td(align='center')= topic.author
+    artcle
+      if topic
+        h2= topic.title
+        = topic.content
+        div= 'by '+topic.author
+    ul
+      li
+        a(href='/topic/add') 새 글
+      if topic
+        li
+          a(href='/topic/'+topic.id+'/edit') 수정
+        li
+          a(href='/topic/'+topic.id+'/delete') 삭제
