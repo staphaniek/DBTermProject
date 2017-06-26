@@ -1,4 +1,13 @@
 var mysql = require('mysql');
+var express = require('express');
+var bodyParser = require('body-parser');
+var multer = require('multer');
+var app = express();
+
+app.get('/', function(req,res){
+  res.send('<h1 style = 'color'>ALPS 관리 시스템</h1>');
+});
+/*
 var conn = mysql.createConnection({
   host : 'localhost',
   port : '3306',
@@ -16,3 +25,7 @@ conn.query(sql, function(err, rows, columns){
   }
 });
 conn.end();
+*/
+app.listen(3000, function(){
+  console.log('Connected 3000 port!!');
+});

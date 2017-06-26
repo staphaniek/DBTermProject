@@ -1,0 +1,22 @@
+get(/) : 로그인, 회원가입
+  get(/register) : 회원가입
+  post(/register)
+  get(/login) : 로그인
+  post(/login/:id)
+
+get(/home) : 홈페이지
+
+get(/team) : 팀 목록
+  get(/team/create) : 팀 만들기
+  post(/team/create)
+  get(/team/delete) : 팀 삭제
+
+get(/writing) : 게시판
+  get(/writing/add)
+  get(/writing/:id)
+  get(/writing/:id/edit)
+  get(/writing/:id/delete)
+
+get(/study/)
+get(/study/create)
+get(/study/view/:id)
