@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+  style.
+    table {
+      border: 1px solid #444444;
+      border-collapse: collapse;
+    }
+    tr, td {
+      border: 1px solid #444444;
+    }
+  body
+    h1
+      a(href='/home/'+user.id) Home
+    h2
+      a(href='/member') Member
+    artcle
+      form(action='/member/'+member.id+'/edit' method='post')
+        p(name='id')= 'member no. '+member.id
+        p(name='username')= 'username : '+member.username
+        p name :
+          input(type='text' value=member.name placeholder='name' name='name')
+        p user_level :
+          input(type='text' value=member.user_level placeholder='user_level' name='user_level')
+        p
+          input(type='submit' value='수정하기')

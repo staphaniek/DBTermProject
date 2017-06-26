@@ -9,7 +9,7 @@ get('/login') : 로그인 login.pug ok
 get('/logout/:id') : 로그아웃 ok
   get('/')
 
-get('/home/:id') : 홈페이지 home.pug 
+get('/home/:id') : 홈페이지 home.pug
 
 get('/team') : 팀 목록 team.pug
 
@@ -24,7 +24,7 @@ get('/team/:id/delete') : 팀 삭제
   get('/team')
 
 get('/topic') : 게시판 viewTopic.pug
-get('/topic/add') : 게시글 추가 add.pug
+get('/topic/add') : 게시글 추가 addTopic.pug
   post('/topic/add')
   get('/topic/:id')
 get('/topic/:id') : 게시판 보기 viewTopic.pug
@@ -61,11 +61,10 @@ get('/lecture/:id/delete') : 스터디 개설 취소 deleteStudy.pug
   get('/lecture')
 
 admin 관리 메뉴
-get('/member') : 멤버 관리 member.pug
-get('/member/:id') : 멤버 보기 member.pug
-get('/member/:id/delete') : 멤버 삭제 deleteMember.pug
+get('/member') : 멤버 관리 member.pug ok
+get('/member/:id/delete') : 멤버 삭제 deleteMember.pug ok
   post('/member/:id/delete')
   get('/member')
-get('/member/:id/edit') : 멤버 권한 수정 editMember.pug
+get('/member/:id/edit') : 멤버 권한 수정 editMember.pug ok
   post('/member/:id/edit')
-  get('/member/:id')
+  get('/member/')

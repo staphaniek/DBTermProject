@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+  style.
+    table {
+      border: 1px solid #444444;
+      border-collapse: collapse;
+    }
+    tr, td {
+      border: 1px solid #444444;
+    }
+  body
+    h1
+      a(href='/home/'+user.id) Home
+    h2
+      a(href='/member') Member
+    table
+      tr
+        td id
+        td username
+        td name
+        td user_level
+      each mem in members
+        tr
+          td= mem.id
+          td= mem.username
+          td= mem.name
+          td= mem.user_level
+          td
+            a(href='/member/'+mem.id+'/edit') 수정
+          td
+            a(href='/member/'+mem.id+'/delete') 삭제

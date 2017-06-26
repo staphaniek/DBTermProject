@@ -29,6 +29,111 @@ conn.query(sql, function(err, rows, columns){
 });
 conn.end();
 */
+app.post('/member/:id/delete',function(req,res){
+  var id=req.params.id;
+  var sql='DELETE FROM member WHERE id=?';
+  conn.query(sql,[id],function(err,result,fields){
+    res.redirect('/member/');
+  });
+});
+app.get('/member/:id/delete',function(req,res){
+  var user={};
+  if(req.cookies.user){
+    var user=req.cookies.user;
+  }
+  else{
+    console.log(err);
+    return res.status(500).send('empty');
+  }
+  var sql = 'SELECT * FROM member WHERE id=?';
+  var id = req.params.id;
+  conn.query(sql,[id], function(err, member, fields){
+    if(err){
+      console.log(err);
+      res.status(500).send('Internal Server Error');
+    }
+    else{
+      if(member.length === 0){
+        res.status(500).send('There is no record');
+      }
+      else{
+        res.render('deleteMember', {user:user, member:member[0]});
+      }
+    }
+  });
+});
+app.post(['/member/:id/edit'], function(req,res){
+  var name=req.body.name;
+  var user_level=req.body.user_level;
+  var id=req.params.id;
+  var sql = 'UPDATE member SET name=?, user_level=? WHERE id=?';
+  conn.query(sql, [name, user_level, id], function(err,result,fields){
+    if(err){
+      console.log(err);
+      res.status(500).send('Internal Server Error');
+    }
+    else{
+      res.redirect('/member/');
+    }
+  });
+});
+app.get(['/member/:id/edit'], function(req,res){
+  var user={};
+  if(req.cookies.user){
+    var user=req.cookies.user;
+  }
+  else{
+    console.log(err);
+    return res.status(500).send('empty');
+  }
+  var sql = 'SELECT * FROM member';
+  conn.query(sql,function(err, members, fields){
+    var id = req.params.id;
+    if(id){
+      var sql = 'SELECT * FROM member WHERE id=?';
+      conn.query(sql, [id], function(err, member, fields){
+        if(err){
+          console.log(err);
+          res.status(500).send('Internal Server Error');
+        }
+        else{
+          res.render('editMember',{members:members, member:member[0], user:user});
+        }
+      });
+    } else {
+      console.log('There is no id.');
+      res.status(500).send('Internal Server Error');
+    }
+  });
+});
+app.get(['/member', '/member/:id'], function(req,res){
+  var sql = 'SELECT * FROM member';
+  var user={};
+  if(req.cookies.user){
+    var user=req.cookies.user;
+  }
+  else{
+    console.log(err);
+    return res.status(500).send('empty');
+  }
+  conn.query(sql,function(err, members, fields){
+    var id = req.params.id;
+    if(id){
+      var sql = 'SELECT * FROM topic WHERE id=?';
+      conn.query(sql, [id], function(err, member, fields){
+        if(err){
+          console.log(err);
+          res.status(500).send('Internal Server Error');
+        }
+        else{
+          res.render('member',{members:members, member:member[0], user:user});
+        }
+      });
+    } else {
+      res.render('member',{members:members, user:user});
+    }
+  });
+});
 app.get(['/home/:id'], function(req,res){
   var id = req.params.id;
   if(req.cookies.user){

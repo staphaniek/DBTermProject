@@ -13,5 +13,11 @@ html
       a(href='/logout/'+user.id) logout
     div Menu
     ul
+    if user.user_level > 3
+      li
+        a(href='/member') 멤버 관리
     li
       a(href='/team') 팀 목록
+    li
+      a(href='/topic') 게시판
+    
