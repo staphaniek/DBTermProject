@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+  body
+    h1
+      a(href='/home/'+user.id) Home
+    table(border='1')
+      tr
+        td
+          =user.name
+    div
+      a(href='/logout/'+user.id) logout
+    div Menu
+    ul
+    li
+      a(href='/team') 팀 목록

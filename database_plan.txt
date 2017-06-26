@@ -1,22 +1,71 @@
-get(/) : 로그인, 회원가입
-  get(/register) : 회원가입
-  post(/register)
-  get(/login) : 로그인
-  post(/login/:id)
+get('/'') : 로그인, 회원가입 ok
 
-get(/home) : 홈페이지
+get('/register') : 회원가입 register.pug ok
+  post('/register')
+  get('/home/:id')
+get('/login') : 로그인 login.pug ok
+  post('/login/:id')
+  get('/home/:id')
+get('/logout/:id') : 로그아웃 ok
+  get('/')
 
-get(/team) : 팀 목록
-  get(/team/create) : 팀 만들기
-  post(/team/create)
-  get(/team/delete) : 팀 삭제
+get('/home/:id') : 홈페이지 home.pug 
 
-get(/writing) : 게시판
-  get(/writing/add)
-  get(/writing/:id)
-  get(/writing/:id/edit)
-  get(/writing/:id/delete)
+get('/team') : 팀 목록 team.pug
 
-get(/study/)
-get(/study/create)
-get(/study/view/:id)
+get('/team/:id') : 팀 보기 team.pug
+
+get('/team/create') : 팀 만들기
+  post('/team/create')
+  get('/team/:id')
+
+get('/team/:id/delete') : 팀 삭제
+  post('/team/:id/delete')
+  get('/team')
+
+get('/topic') : 게시판 viewTopic.pug
+get('/topic/add') : 게시글 추가 add.pug
+  post('/topic/add')
+  get('/topic/:id')
+get('/topic/:id') : 게시판 보기 viewTopic.pug
+get('/topic/:id/edit') : 게시글 수정 topicEdit.pug
+  post('/topic/:id/edit')
+  get('/topic/:id')
+get('/topic/:id/delete') : 게시글 삭제 topicDelete.pug
+  post('/topic/:id/delete')
+  get('/topic')
+
+get('/study') : 스터디 검색 Study.pug
+  post('/study/:name')
+  get('study/:name')
+get('/study/:name') : 스터디 검색 결과 searchStudy.pug
+get('/study/:id') : 스터디 상세 보기 viewStudy.pug
+get('/study/:id/member') : 스터디 멤버 보기 viewStudyMember.pug
+get('/study/:id/join') : 스터디 신청 enrollStudy.pug
+  post('take/add')
+  get('take/')
+
+get('take/) : 신청 내역 take.pug
+
+get('/take/:id/delete') : 스터디 신청 취소 withdraw.pug
+  post('take/:id/delete')
+  get('take/')
+
+lecturer에 대한 메뉴
+get('/lecture') : 개설 목록 lecture.pug
+get('/lecture/add') : 스터디 개설 addStudy.pug
+  post('/lecture/add')
+  get('/lecture')
+get('/lecture/:id/delete') : 스터디 개설 취소 deleteStudy.pug
+  post('/lecture/:id/delete')
+  get('/lecture')
+
+admin 관리 메뉴
+get('/member') : 멤버 관리 member.pug
+get('/member/:id') : 멤버 보기 member.pug
+get('/member/:id/delete') : 멤버 삭제 deleteMember.pug
+  post('/member/:id/delete')
+  get('/member')
+get('/member/:id/edit') : 멤버 권한 수정 editMember.pug
+  post('/member/:id/edit')
+  get('/member/:id')

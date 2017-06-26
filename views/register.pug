@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    meta(charset='utf8')
+  body
+    h1 Register
+    form(action='/register', method='post')
+      p
+        input(type='text', name='username', placeholder='username')
+      p
+        input(type='password', name='password', placeholder='password')
+      p
+        input(type='text', name='name', placeholder='name')
+      p
+        input(type='submit', value='회원가입')
