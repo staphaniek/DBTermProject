@@ -18,6 +18,88 @@ var conn = mysql.createConnection({
 conn.connect();
 
 ////////////////////////////study///////////////////////////////////////////////
+app.post('/study/:id/join', function(req,res){
+  var user={};
+  if(req.cookies.user){
+    user=req.cookies.user;
+  }
+  else{
+    console.log(err);
+    return res.status(500).send('empty');
+  }
+  var studyid=req.params.id;
+  var today = new Date();
+  var y = today.getFullYear();
+  var m = today.getMonth();
+  var semester=0;
+  if(m<7)semester=1;
+  else semester=2;
+  var sql='SELECT * FROM takes where studentid=? and studyid=?';
+  conn.query(sql, [user.id, studyid], function(err,results, fields){
+    if(err){
+      console.log(err);
+      res.status(500).send('Internal Server Error');
+    }
+    else{
+      if(results.length>0){
+        return res.status(500).send('이미 신청한 스터디입니다!');
+      }
+      else{
+        var sql = 'INSERT INTO takes(studentid, studyid, year, semester) VALUES(?, ?, ?, ?)';
+        conn.query(sql, [user.id, studyid, y, semester], function(err, result, fields){
+          if(err){
+            console.log(err);
+            res.status(500).send('Insert Error');
+          }
+          else{
+            res.redirect('/take');
+          }
+        });
+      }
+    }
+  });
+});
+app.get('/study/:id/join', function(req,res){
+  var user={};
+  if(req.cookies.user){
+    user=req.cookies.user;
+  }
+  else{
+    console.log(err);
+    return res.status(500).send('empty');
+  }
+  var id=req.params.id;
+  var sql = 'SELECT * FROM study where studyid=?';
+  conn.query(sql,[id],function(err, study, fields){
+    if(err){
+      console.log(err);
+      res.status(500).send('신청 오류!');
+    }
+    else{
+      res.render('joinStudy',{user:user, study:study[0]});
+    }
+  });
+});
+app.get('/lecture', function(req,res){
+  var user={};
+  if(req.cookies.user){
+    var user=req.cookies.user;
+  }
+  else{
+    console.log(err);
+    return res.status(500).send('empty');
+  }
+  var sql = 'SELECT * FROM teaches natural join study WHERE lecturerid=?';
+  conn.query(sql,[user.id],function(err, lectures, fields){
+    if(err){
+      console.log(err);
+      res.status(500).send('Internal Server Error');
+    }
+    else{
+      res.render('lecture', {user:user, lectures:lectures});
+    }
+  });
+});
 app.post('/study', function(req,res){
   var user={};
   if(req.cookies.user){
@@ -78,6 +160,47 @@ app.get(['/study','/study/:id'], function(req,res){
 
 
 ////////////////////////////take////////////////////////////////////////////////
+app.post('/take/:id/delete',function(req,res){
+  var user={};
+  if(req.cookies.user){
+    var user=req.cookies.user;
+  }
+  else{
+    console.log(err);
+    return res.status(500).send('empty');
+  }
+  var studyid=req.params.id;
+  var sql='DELETE FROM takes WHERE studentid=? and studyid=?';
+  conn.query(sql,[user.id, studyid],function(err,result,fields){
+    res.redirect('/take/');
+  });
+});
+app.get('/take/:id/delete',function(req,res){
+  var user={};
+  if(req.cookies.user){
+    var user=req.cookies.user;
+  }
+  else{
+    console.log(err);
+    return res.status(500).send('empty');
+  }
+  var sql = 'SELECT * FROM study where studyid=?';
+  var studyid = req.params.id;
+  conn.query(sql,[studyid], function(err, study, fields){
+    if(err){
+      console.log(err);
+      res.status(500).send('Internal Server Error');
+    }
+    else{
+      if(study.length === 0){
+        res.status(500).send('There is no record');
+      }
+      else{
+        res.render('withdrawStudy', {user:user, study:study[0]});
+      }
+    }
+  });
+});
 app.get('/take', function(req,res){
   var user={};
   if(req.cookies.user){
@@ -87,7 +210,7 @@ app.get('/take', function(req,res){
     console.log(err);
     return res.status(500).send('empty');
   }
-  var sql = 'SELECT * FROM takes natural join study WHERE studentid=?';
+  var sql = 'SELECT * FROM study , takes where takes.studyid=study.studyid and studentid=?';
   conn.query(sql,[user.id],function(err, takes, fields){
     if(err){
       console.log(err);
@@ -136,17 +259,29 @@ app.post('/lecture/:id/delete',function(req,res){
             res.status(500).send('Delete Error');
           }
           else{
-            conn.commit(function (err){
+            sql='DELETE FROM takes where studyid=?';
+            conn.query(sql, [studyid], function(err, result1, fields){
               if(err){
-                console.error(err);
-                conn.rollback(function () {
+                conn.rollback(function(){
                   console.error('rollback error');
                   throw err;
                 });
                 res.status(500).send('Delete Error');
               }
               else{
-                res.redirect('/lecture');
+                conn.commit(function (err){
+                  if(err){
+                    console.error(err);
+                    conn.rollback(function () {
+                      console.error('rollback error');
+                      throw err;
+                    });
+                    res.status(500).send('Delete Error');
+                  }
+                  else{
+                    res.redirect('/lecture');
+                  }
+                });
               }
             });
           }

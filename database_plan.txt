@@ -9,7 +9,7 @@ get('/login') : 로그인 login.pug ok
 get('/logout/:id') : 로그아웃 ok
   get('/')
 
-get('/home/:id') : 홈페이지 home.pug
+get('/home/:id') : 홈페이지 home.pug ok
 
 get('/team') : 팀 목록 team.pug ok
 get('/team/:id') : 팀 보기 team.pug ok
@@ -36,13 +36,13 @@ get('/topic/:id/delete') : 게시글 삭제 deleteTopic.pug ok
 get('/study') : 스터디 검색 study.pug ok
   post('/study/') 스터디 검색 결과 study.pug ok
 get('/study/:id') : 스터디 상세 보기 viewStudy.pug ok
-get('/study/:id/join') : 스터디 신청 enrollStudy.pug
-  post('take/add')
+get('/study/:id/join') : 스터디 신청 joinStudy.pug ok
+  post('study/:id/join')
   get('take/')
 
-get('take/) : 신청 내역 take.pug
+get('take/) : 신청 내역 take.pug ok
 
-get('/take/:id/delete') : 스터디 신청 취소 withdraw.pug
+get('/take/:id/delete') : 스터디 신청 취소 withdraw.pug ok
   post('take/:id/delete')
   get('take/')
 
