@@ -20,4 +20,10 @@ html
       a(href='/team') 팀 목록
     li
       a(href='/topic') 게시판
-    
+    li
+      a(href='/study') 스터디 검색
+    if user.user_level>2
+      li
+        a(href='/lecture') 내가 개설한 스터디
+    li
+      a(href='/take') 내 신청 스터디

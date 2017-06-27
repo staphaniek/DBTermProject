@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+  body
+    h1
+      a(href='/home/'+user.id) Home
+    h2
+      a(href='/team') 팀 목록
+    artcle
+      form(action='/team/add' method='post')
+        p
+          input(type='text' placeholder='팀명' name='teamname')
+        p
+          input(type='text' name='teammember1' placeholder='팀원1')
+        p
+          input(type='text' name='teammember2' placeholder='팀원2')
+        p
+          input(type='text' name='teammember3' placeholder='팀원3')
+        p
+          input(type='submit' value='팀 추가')

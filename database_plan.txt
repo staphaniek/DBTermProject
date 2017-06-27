@@ -11,36 +11,31 @@ get('/logout/:id') : 로그아웃 ok
 
 get('/home/:id') : 홈페이지 home.pug
 
-get('/team') : 팀 목록 team.pug
+get('/team') : 팀 목록 team.pug ok
+get('/team/:id') : 팀 보기 team.pug ok
+get('/team/add') : 팀 만들기 addTeam.pug ok
+  post('/team/add')
+  get('/team/')
 
-get('/team/:id') : 팀 보기 team.pug
-
-get('/team/create') : 팀 만들기
-  post('/team/create')
-  get('/team/:id')
-
-get('/team/:id/delete') : 팀 삭제
+get('/team/:id/delete') : 팀 삭제 deleteTeam.pug ok
   post('/team/:id/delete')
   get('/team')
 
-get('/topic') : 게시판 viewTopic.pug
-get('/topic/add') : 게시글 추가 addTopic.pug
+get('/topic') : 게시판 viewTopic.pug ok
+get('/topic/add') : 게시글 추가 addTopic.pug ok
   post('/topic/add')
   get('/topic/:id')
-get('/topic/:id') : 게시판 보기 viewTopic.pug
-get('/topic/:id/edit') : 게시글 수정 topicEdit.pug
+get('/topic/:id') : 게시판 보기 viewTopic.pug ok
+get('/topic/:id/edit') : 게시글 수정 editTopic.pug ok
   post('/topic/:id/edit')
   get('/topic/:id')
-get('/topic/:id/delete') : 게시글 삭제 topicDelete.pug
+get('/topic/:id/delete') : 게시글 삭제 deleteTopic.pug ok
   post('/topic/:id/delete')
   get('/topic')
 
-get('/study') : 스터디 검색 Study.pug
-  post('/study/:name')
-  get('study/:name')
-get('/study/:name') : 스터디 검색 결과 searchStudy.pug
-get('/study/:id') : 스터디 상세 보기 viewStudy.pug
-get('/study/:id/member') : 스터디 멤버 보기 viewStudyMember.pug
+get('/study') : 스터디 검색 study.pug ok
+  post('/study/') 스터디 검색 결과 study.pug ok
+get('/study/:id') : 스터디 상세 보기 viewStudy.pug ok
 get('/study/:id/join') : 스터디 신청 enrollStudy.pug
   post('take/add')
   get('take/')
@@ -52,11 +47,14 @@ get('/take/:id/delete') : 스터디 신청 취소 withdraw.pug
   get('take/')
 
 lecturer에 대한 메뉴
-get('/lecture') : 개설 목록 lecture.pug
-get('/lecture/add') : 스터디 개설 addStudy.pug
+get('/lecture') : 개설 목록 lecture.pug ok
+get('/lecture/add') : 스터디 개설 addStudy.pug ok
   post('/lecture/add')
   get('/lecture')
-get('/lecture/:id/delete') : 스터디 개설 취소 deleteStudy.pug
+get('/lecture/:id/edit') 스터디 수정 editStudy.pug ok
+  post('/lecture/:id/edit')
+  get(/lecture)
+get('/lecture/:id/delete') : 스터디 개설 취소 deleteStudy.pug ok
   post('/lecture/:id/delete')
   get('/lecture')
 

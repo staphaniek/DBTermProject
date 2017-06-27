@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+  style.
+    table {
+      border: 1px solid #444444;
+      border-collapse: collapse;
+    }
+    tr, td {
+      border: 1px solid #444444;
+    }
+  body
+    h1
+      a(href='/home/'+user.id) Home
+    h2
+      a(href='/take') 내 신청 스터디
+    table
+      tr
+        td year
+        td semester
+        td 스터디 이름
+      each take in takes
+        tr
+          td= take.year
+          td= take.semester
+          td= take.title
+          td
+            a(href='/take/'+take.studyid+'/delete') 삭제

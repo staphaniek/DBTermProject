@@ -1,0 +1,32 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+  style.
+    table {
+      border: 1px solid #444444;
+      border-collapse: collapse;
+    }
+    tr, td {
+      border: 1px solid #444444;
+    }
+  body
+    h1
+      a(href='/home/'+user.id) Home
+    h2
+      a(href='/lecture') 내가 개설한 스터디
+    table
+      tr
+        td year
+        td semester
+        td 스터디 이름
+      each lecture in lectures
+        tr
+          td= lecture.year
+          td= lecture.semester
+          td= lecture.title
+          td
+            a(href='/lecture/'+lecture.studyid+'/edit') 수정
+          td
+            a(href='/lecture/'+lecture.studyid+'/delete') 삭제
+    a(href='/lecture/add') 스터디 개설

@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+  style.
+    table {
+      border: 1px solid #444444;
+      border-collapse: collapse;
+    }
+    tr, td {
+      border: 1px solid #444444;
+    }
+  body
+    h1
+      a(href='/home/'+user.id) Home
+    h2
+      a(href='/topic') 게시판
+    artcle
+      h2= 'Delete '+topic.title+'?'
+      form(action='/topic/'+topic.id+'/delete' method='post')
+        p
+          input(type='submit' value='YES')
+      a(href='/topic/'+topic.id) NO

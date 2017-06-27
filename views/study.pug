@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+  style.
+    table {
+      border: 1px solid #444444;
+      border-collapse: collapse;
+    }
+    tr, td {
+      border: 1px solid #444444;
+    }
+  body
+    h1
+      a(href='/home/'+user.id) Home
+    h2
+      a(href='/study') 스터디 검색
+    form(action='/study/' method='post')
+      p
+        input(type='text', name='title', placeholder='스터디 명을 입력하세요')
+        input(type='submit', value='검색')
+    table
+      tr
+        td year
+        td semester
+        td 스터디 이름
+      each study in studies
+        tr
+          td= study.year
+          td= study.semester
+          td= study.title
+          td
+            a(href='/study/'+study.studyid) 상세보기
+          td
+            a(href='/study/'+study.studyid+'/join') 신청

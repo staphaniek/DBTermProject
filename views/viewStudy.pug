@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+  style.
+    table {
+      border: 1px solid #444444;
+      border-collapse: collapse;
+    }
+    tr, td {
+      border: 1px solid #444444;
+    }
+  body
+    h1
+      a(href='/home/'+user.id) Home
+    h2
+      a(href='/study') 스터디 검색
+    artcle
+      h2= '스터디 이름 : '+study.title
+      div= '강사 : '+study.name
+      div
+        =study.year +'년도 '
+        =study.semester +'학기'
+      h2 내용 소개
+      h5= study.description
+    ul
+      li
+        a(href='/study/'+study.studyid+'/join') 신청
